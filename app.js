@@ -2,6 +2,7 @@
 // 1 jour = 86400000 millisecondes.
 
 // Comment créer un cookie, je suis gentil je laisse l'exemple !
+let date = new Date(Date.now() + 86400000);
 document.cookie = "theme=dark; path=/; domain=localhost; max-age=86400000; samesite=strict";
 console.log(document.cookie);
 
@@ -10,7 +11,7 @@ console.log(document.cookie);
  * Récupère tous les cookies.
  * @returns {string[]}
  */
-function getCookies() {
+function getCookies(monCookie) {
     let cookies = document.cookie.split(';');
     return cookies.map(cookie => cookie.trim());
 }
@@ -23,7 +24,9 @@ function getCookies() {
  */
 function setCookie(cookieName, cookieValue) {
     // Le cookie doit être valide 2 jours et doit respecter les normes de sécurité contre les failles CSRF.
-    // Votre code ici.
+    document.cookie = "theme=dark; path=/; domain=localhost; max-age=86400000 secure; samesite=strict" + date.toUTCString();
+
+    console.log(document.cookie);
 }
 
 
@@ -32,15 +35,15 @@ function setCookie(cookieName, cookieValue) {
  * @param cookieName
  */
 function getCookie(cookieName) {
-    // Votre code ici.
+    cookieName = 'monCookie';
 }
 
 
-console.log(getCookies());
+console.log(getCookies("monCookie"));
 
 // FIXME Test de setCookie()
 setCookie('monCookie', 'maValeur');
-console.log(getCookies());
+console.log(getCookies("monCookie"));
 
 // FIXME test de getCookie(param)
 console.log(getCookies('monCookie'));
